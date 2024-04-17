@@ -1,0 +1,219 @@
+@extends("layouts.app")
+
+@section("title", "Multipaket")
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style>
+.container {
+    max-width: 100% !important;
+}
+.table {
+    width: fit-content !important;
+}	
+</style>
+@section("content")
+    <div class="main-container pt-2 pb-2" id="invoice">
+	
+	
+	
+        @if($order && $order->data)
+
+            <div>Multipaket <br/> Zu kommissionieren: {{$order->data->orderNumber}}</div>
+
+            <div class="flex-between  pt-2" data-invoice="{{$order->data->id}}">
+              <div class="barcode-box">
+                    <!-- '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($order->data->id, "C39",1,50) . '" alt="barcode"   />' -->
+                    
+                    <div> 
+                        <small>
+						
+						Rechnungsnummer: {{$order->data->invoiceNumberPrefix . $order->data->invoiceNumber}} </br>
+                        BillBeeID: {{$order->data->id}}</br>
+						@if($order->data->sellerComment) Hinweise: {{$order->data->sellerComment}}@endif
+                        @if($hasLabel==true) Erstes Label schon vorproduziert. Nur noch ausdrucken. @endif
+                        @if($order->data->shippingProviderId == '20321')
+                            <div>!ACHTUNG AMAZON PRIME - DPD!</div>
+                        @endif
+                        @if($order->data->shippingProviderProductId == '253227' || $order->data->shippingProviderProductId == '287342')
+                            <div> ACHTUNG - EXPORT Dokumente nicht vergessen</div>
+                        @endif
+                        </small>
+                     </div>
+                    <div style="font-size: 14px;">
+                        Name: {{$order->data->customer->name}}
+                    </div>
+                </div>
+                
+                <table class="info-table ml-2">
+                    <thead>
+                        <td>Produkt</td>
+                        <td>EAN</td>
+                        <td>Gewicht <br><small>(pro Stk in g)</small></td>
+                        <td>Anzahl</td>
+                        <td>Verpackt</td>
+                        <td class="scanned-message"></td>
+                    </thead>
+					
+                    @foreach($order->data->orderItems as $key => $orderItem)
+					
+							@if(array_key_exists("ean",$orderItem))
+							@if(isset($orderItem['ean']))
+                            <tr data-EAN="{{$orderItem['ean']}}" data-sku="{{$orderItem['SKU']}}" 1>
+                                <td class="scanned-title">{{$orderItem["title"]}}</td>
+								<td>{{$orderItem["ean"]}}</td>
+                                <td>{{$orderItem["weight"]}}</td>
+                                <td>{{$orderItem["quantity"]}}</td>
+                                <td class="scanned-quantity">{{$orderItem["scanned_quantity"]}}</td>
+                                <td class="scanned-message">
+                                    <span class="message d-none"></span>
+                                </td>
+                            </tr>
+							@endif
+							@else
+							@if(isset($orderItem['EAN']))
+							<tr data-EAN="{{$orderItem['EAN']}}" data-sku="{{$orderItem['SKU']}}" 2>
+                                <td class="scanned-title">{{$orderItem["title"]}}</td>
+								<td>{{$orderItem["EAN"]}}</td>
+                                <td>{{$orderItem["weight"]}}</td>
+                                <td>{{$orderItem["quantity"]}}</td>
+                                <td class="scanned-quantity">{{$orderItem["scanned_quantity"]}}</td>
+                                <td class="scanned-message">
+                                    <span class="message d-none"></span>
+                                </td>
+                            </tr>
+							@endif
+							@endif 
+							
+                    @endforeach
+                </table>
+            </div>
+            <div class="col-md-2" style="padding-left: 0px;">
+                <p class="nextgrey">Neuen Karton hinzufügen:</p>
+                <input type="text" class="d-block" autofocus oninput="addBoxScanned(event)" id="scanbox">
+            </div>
+            <div class="row border-btm" style="margin-top:25px;">
+                <div class="col-md-2">
+                    <p class="nextgrey">Scanne Produkt EAN:</p>
+                    <input type="text" class="d-block" oninput="handleChangeProductBarcodeMulti(event)" id="barcode">
+                    <span class="message d-none"></span>
+
+                    <p class="nextgrey">Produkte packen in Box:</p>
+                    <ul id="box_list" class="nextgrey"></ul>
+                </div>
+                <div class="col-md-10 table-responsive">
+                    <table id="box_table" class="table table-bordered" style="white-space: nowrap;">
+                        <thead id="box_table_thead">
+                            <tr><th class='t_box'>EAN / Title</th></tr>
+                        </thead>
+                        <tbody id="box_table_tbody">
+                            @foreach($order->data->orderItems as $key => $orderItem)
+                            @if(isset($orderItem['EAN']))
+                            <tr id="tr_{{$orderItem['EAN']}}" data-quantity="{{$orderItem['quantity']}}" data-ss="{{$orderItem['SKU']}}" data-ee="{{$orderItem['EAN']}}" data-title="{{$orderItem['title']}}" data-weight="{{$orderItem['weight']}}">
+                                <td class="title_{{$orderItem['EAN']}}">{{$orderItem["SKU"]}}</td>
+                            </tr>
+                            @endif
+                            @endforeach
+                        </tbody>
+                        <tfoot id="box_table_tfoot">
+                            <tr><td></td></tr>
+                        </tfoot>
+                    </table>
+				</div>
+            </div>
+
+		<form>
+        <div class="form-check">
+			<input type="checkbox" class="form-check-input" {{$configuration_shopid->pickliste}} id="DeliveryNote" @if($configuration_shopid->pickliste == 'Avocado' || $configuration_shopid->pickliste == 'B2B'){{'checked'}}@endif>
+			<label class="form-check-label" for="exampleCheck1">Lieferschein drucken</label>
+		</div>
+		</form>
+
+        <div class="flex-between mt-2">
+                <button class="btn btn-warning mt-5" id="createVersandLabel" onclick="createMultiShipping('{{$order->data->id}}')" disabled>
+                   Erstelle Versand label
+                </button>
+
+                <button class="btn btn-warning mt-5" id="createPartialVersandLabel" onclick="partialCheck('{{$order->data->id}}')">
+                   Unvollständiger Versand
+                </button>
+
+                <button class="btn btn-warning mt-5" id="checkWeight" onclick="checkWeight()">
+                   Prüfe Versandgewicht
+                </button>
+
+                <button class="btn btn-warning mt-5" id="b2bpalette" onclick="b2bpalette('{{$order->data->id}}')">
+                   B2B - Palette Fertig
+                </button>
+
+                <a href="/" class="quality-back">
+                    <button class="btn btn-warning mt-5 back">< Zurück</button>
+                </a>
+        </div>
+
+        @else
+            <!--a href="/">
+                <button class="main-btn mt-2 back">< Zurück</button>
+            </a-->
+        @endif
+
+    </div>
+
+    @push('scripts')
+        <script>
+            setOrderItems(JSON.parse('<?= json_encode(($order && $order->data) ? $order->data->orderItems : []); ?>'), '<?= ($order && $order->data) ? ($order->data->id) : ""?>')
+        </script>
+        <script>
+
+            function minus(ean, col) {
+                var input = $("#tr_"+ean+" ."+col+" .box_"+ean);
+                value = input.val();
+                if(value > 0){
+                    input.val(parseInt(input.val()) - 1);
+                    input.trigger("input");
+                }
+            }
+            
+			function plus(ean, col) {
+                var input = $("#tr_"+ean+" ."+col+" .box_"+ean);
+                var quantity = parseInt($("#tr_"+ean).data("quantity"));
+                if(quantity > 0){
+                    var sum = 0;
+                    $('.box_'+ean).each(function(){
+                        sum += parseInt(this.value);
+                    });
+                    if(isNaN(sum)){sum = 0;}
+                    if(sum < quantity){
+                        input.val(parseInt(input.val()) + 1);
+                        input.trigger("input");
+                    }
+                }else{
+                    var query = document.querySelector("tr[data-EAN=\"".concat(ean, "\"]"));
+                    showMessageBox("fail", query);
+                }
+            };
+            
+            function removeBox(box){
+                eans = JSON.parse('<?= json_encode(($order && $order->data) ? $order->data->orderItems : []); ?>'), '<?= ($order && $order->data) ? ($order->data->id) : ""?>';
+                $(eans).each(function(key, val){
+                    $("#tr_"+val.EAN+" ."+box+" .box_"+val.EAN).val(0);
+                    input = $("#tr_"+val.EAN+" input").trigger("input");
+                });
+
+                $("."+box).trigger("input");
+                $('.'+box).remove();
+
+                window.countboxtext = window.countboxtext - 1;
+                cbt = 1;
+                for (let i = 1; i <= window.countbox; i++) {
+                    if($('span').hasClass('cbt_'+i)){
+                        console.log(i +'='+ cbt);
+                        $('.cbt_'+i+'').text('Box '+cbt);
+                        cbt++;
+                    }
+                    
+                }
+            }
+
+        </script>
+    @endpush
+@endsection

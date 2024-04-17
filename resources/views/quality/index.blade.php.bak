@@ -1,0 +1,21 @@
+@extends("layouts.app")
+
+@section("title", "Qualitätskontrolle")
+
+@section("content")test1
+    <div class="main-container pt-2 pd-2" id="invoice">
+        <div class="input-box quality">
+
+            <label class="page-title"  for="scan">Kommissionieren /<br> <span class="bold-text">Qualitätskontrolle</span>
+            </label>
+            <input id="scan" type="text" class="d-block"  autofocus oninput="handleChangeInvoiceNumber(event)">
+            <p class="grey">Scanne den Auftrag</p>
+        </div>
+        <a href="/">
+            <button class="btn btn-warning text-dark mr-3"> Zurück</button>
+        </a>
+		{{-- <a href="/multibox">
+            <button class="btn btn-warning text-dark mr-3">Mehrpaket Sendung</button>
+        </a> --}}
+    </div>
+@endsection

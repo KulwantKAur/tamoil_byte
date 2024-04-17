@@ -1,0 +1,61 @@
+<?php
+
+return [
+    'base_api_url' => env("BILLBEE_BASE_API_URL", null),
+    'api_key' => env("BILLBEE_API_KEY", null),
+    'username' => env("BILLBEE_API_USERNAME", null),
+    'password' => env("BILLBEE_API_PASSWORD", null),
+    'shop_ids' => [
+        'b2b' => array(77643), //array(B2B: 77643, TEST: 83730, B2C:68914),
+        'b2c' => array(68914), //
+        'avocado' => array(94933),
+        'marketing' => array(77642, 91805,94821),
+        'reklamation' => array(77130, 91244),
+		'test' => array(83730)
+    ],
+	'b2c_customer' => 68914,
+	'eCom_pickup_Shopid' => 68914,
+	'local_pickup_id' => 12, //status in Billbee to indicate pick-up instead of shipping -> Status Mahnung!
+    'ladenbestueckung' => 94821,
+    'ProductId_international' => 287342,
+    'order_state_id' => 16,
+    'b2b_customer' => 77643,
+    'b2b_customers_noExport' => array(23769),
+    'sent_order_state_id' => 4,
+    'credit_note_state_id' => 7,
+    'vorkasseId' => 59,
+    'stock_id' => 171,
+	//	'stock_id_shop' => 172,  //Köln
+	//'stock_id_markt' => 173,  //Berlin
+	//'stock_id_bware' => 226,	
+    //'stock_id_b2b' => 265,    //Events
+    //'stock_id_safetystock' => 291,
+	'stock_id_b-ware' => 172,
+	'stock_id_a-ware_koeln' => 173,
+	'stock_id_b-ware_koeln' => 226,
+	'stock_id_B2B_plattform' => 265,
+	'stock_id_safetystock' => 291,
+	'stock_id_owl' => 344,
+	'fakeshopid' => 77119,
+	'SellerPlatform' => "Manuell",
+    'SellerShopName' => "Lagerapp",
+    'SellerShopId' => 77119,
+    'SellerID' => "7fa16c28-af82-4e1e-8346-1173837f3683",
+    'inventory' => "christian@beyonddc.de",
+    'retourenSupport' => "retouren@kerbholz.com",
+    'B2B_SellerID' => 77643,
+	'B2B_acceptLossOfReturnRight' => true,
+    'store_state' => 4,
+	'B2B_state' => 2,
+	'B2B_platform' => "Manuell",
+	'B2B_shopName' => "Manual Order B2B",
+	'B2B_id' => "3c40a0eb-0463-4fc3-b1fd-f5f1df1a988d",
+    'B2B_default_stock_id' => 265,
+	'B2B_dontAdjustStock' => false,
+    'RetourenLabel' => true,
+    'B2B_orderUploadDefaultShopId' => 83730,
+    'taxRateB2B' => 19, //in full %
+    'B2BnettoUpload' => true,  //Excel PreisStück ist nettoPreis, dann true. ist bruttopreis dann false
+    'stuecklisteReverseLogic' => false, //true means the stückliste and singe product SKU have the same EAN, and stückliste needs to be recursively traced back to the original product. False means logic as per billbee and stückliste is a separate EAM and reduces the original article (which is again separate SKU and EAN)
+    'sortOrdersBy' => "location"    // location, sku, ean
+];

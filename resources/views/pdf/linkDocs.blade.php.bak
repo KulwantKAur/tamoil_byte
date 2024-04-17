@@ -1,0 +1,101 @@
+@extends("layouts.app")
+
+@section("title", "Dokumente")
+
+@section("content")
+	<div class="container-fluid">
+	<div class="flex-between mt-2">
+          
+			<a href="/multibox" class="back" style="float: right;">
+                <button class="btn btn-warning mt-4 mb-4">Nächste Bestellung</button>
+            </a>
+        </div>
+	
+        <div class="row">
+			@if(isset($shipping_label[0]) && !empty($shipping_label[0]))
+			<div class="col-md-4">
+				<table class="table">
+					<thead>
+						<tr><th>Shipping Docs</th></tr>
+					</thead>
+					<tbody>
+                    @foreach($shipping_label as $key => $val)
+						@if($val != null)
+                   			 <tr><td><a href="javascript:void(0)" data-encode="{{$val}}">Box {{$key + 1}}</a></td></tr>
+						@endif
+                    @endforeach
+					</tbody>
+				</table>
+			</div>
+			@endif
+			
+			@if(count($invoice_pdf) > 0)
+			<div class="col-md-4">
+				<table class="table">
+					<thead>
+						<tr><th>invoice Docs</th></tr>
+					</thead>
+					<tbody>
+                    @foreach($invoice_pdf as $key => $val)
+						@if($val != null)
+                   			<tr><td><a href="javascript:void(0)" data-encode="{{$val}}">Box {{$key + 1}}</a></td></tr>
+						@endif
+                    @endforeach
+					</tbody>
+				</table>
+			</div>
+			@endif
+			
+            @if(count($export_pdf) > 0)
+			<div class="col-md-4">
+				<table class="table">
+					<thead>
+						<tr><th>Export Docs</th></tr>
+					</thead>
+					<tbody>
+					@foreach($export_pdf as $key => $val)
+						@if($val != null)
+							<tr><td><a href="javascript:void(0)" data-encode="{{$val}}">Box {{$key + 1}}</a></td></tr>
+						@endif
+                    @endforeach
+                    </tbody>
+				</table>
+			</div>
+			@endif
+			
+            @if(count($delivery_pdf) > 0 && array_filter($delivery_pdf))
+			<div class="col-md-4">
+				<table class="table">
+					<thead>
+						<tr><th>Lieferschein</th></tr>
+					</thead>
+					<tbody>
+					@foreach($delivery_pdf as $key => $val)
+						@if($val != null)
+                   			<tr><td><a href="javascript:void(0)" data-encode="{{$val}}">Box {{$key + 1}}</a></td></tr>
+						@endif
+                    @endforeach
+                    </tbody>
+				</table>
+			</div>
+			@endif
+			
+        </div>
+
+	</div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script>
+    $('a').click(function(){
+        printJS({
+            printable: $(this).data('encode'),
+            type: 'pdf',
+            base64: true,
+        });
+    });
+    
+    </script>
+@endsection

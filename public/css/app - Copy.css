@@ -1,0 +1,723 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.pt-10 {
+  padding-top: 10%;
+}
+
+.pb-10 {
+  padding-bottom: 10%;
+}
+
+.pt-2 {
+  padding-top: 2%;
+}
+
+.pb-2 {
+  padding-bottom: 2%;
+}
+
+.mt-2 {
+  margin-top: 2%;
+}
+
+.ml-2 {
+  margin-left: 2%;
+}
+
+.mb-10 {
+  margin-bottom: 10%;
+}
+
+.mb-2 {
+  margin-bottom: 2%;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.m-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.d-flex {
+  display: flex;
+  align-items: flex-start;
+}
+
+.grey-btn {
+  min-width: 180px;
+  height: 70px;
+  font-size: 18px;
+}
+
+.grey-btn > a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
+.page-title {
+  font-weight: normal;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.barcode-box {
+  width: 250px;
+  height: 150px;
+}
+
+.barcode-box .message {
+  margin-left: 2px;
+  font-size: 11px;
+}
+
+.info-table thead {
+  font-weight: bold;
+  font-size: 22px;
+  text-align: left;
+}
+
+.info-table {
+  width: 100%;
+  font-size: 18px;
+}
+
+.info-table,
+.info-table th,
+.info-table tr {
+  border-collapse: collapse;
+}
+
+.info-table td {
+  padding: 3px;
+}
+
+.info-table td:not(.scanned-message) {
+  border-bottom: 1px solid black;
+}
+
+.border-btm {
+  border-bottom: 2px solid;
+}
+
+.main-btn {
+  background: #ffc000;
+  padding: 5px 10px;
+  font-size: 20px;
+  color: #fff;
+  border-color: #000;
+  width: 180px;
+  cursor: pointer;
+}
+
+.main-btn.small {
+  padding: 4px 10px;
+  font-size: 15px;
+  width: 100px;
+  margin-left: 10px;
+}
+
+.btn.disabled {
+  background-color: #c3c3c3;
+  pointer-events: none;
+}
+
+.input-box input {
+  min-width: 150px;
+  padding: 5px 10px;
+}
+
+.input-box select {
+  min-width: 150px;
+  padding: 5px 10px;
+  width: 100%;
+  background: #fff;
+}
+
+label.page-title {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.info-table tr.active td {
+  background: #70ad47;
+}
+
+.info-table tr.active td.scanned-message {
+  background: transparent;
+}
+
+.message {
+  display: block;
+  border-radius: 50%;
+  margin: 0 auto;
+  padding: 5px;
+  text-align: center;
+}
+
+.message-fail {
+  background: #ff0000;
+}
+
+.message-success {
+  background: #70ad47;
+}
+
+.input-wrapper {
+  max-width: 300px;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+  width: 100%;
+}
+
+.quality.input-box > input {
+  width: 250px;
+}
+
+.quality-back {
+  margin-top: 3px;
+  display: block;
+}
+
+.grey {
+  color: #c3c3c3;
+}
+
+.scanned-message {
+  vertical-align: middle;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.loader img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.shipment-buttons {
+  flex-direction: column;
+  margin: 28px 0 0 5px;
+}
+
+.shipment-buttons a {
+  margin-left: 5px;
+}
+
+.shipment-order-back {
+  margin-right: 5px;
+}
+
+.receipt-buttons div .main-btn {
+  margin: 8px 5px 0 0;
+}
+
+.shop-ids {
+  justify-content: space-evenly;
+  margin-bottom: 30px;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.back {
+  text-decoration: none;
+}
+
+.row-data.selected {
+  background-color: #ffc0002e;
+}
+
+.row-data.selected input {
+  background-color: #ffc0002e;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+.finance_title {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.finance_content {
+  width: 450px;
+  margin: auto;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+
+.finance_content a {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  padding-top: 42px;
+  font-size: 14.5px;
+}
+
+.finance_content input,
+.finance_content a {
+  width: 170px;
+  height: 100px;
+  background-color: #2e7cb7;
+  color: white;
+  margin: 15px;
+  cursor: pointer;
+}
+
+.payment_limit_table {
+  width: 1200px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.payment_limit_table table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.payment_limit_table td,
+.payment_limit_table th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.payment_limit_table tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.payment_limit_table .payment_limit_buttons {
+  display: flex;
+}
+
+.payment_limit_table .payment_limit_buttons button,
+.payment_limit_table .payment_limit_buttons a {
+  background-color: #c84009;
+  margin-top: 20px;
+  width: 120px;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+}
+
+.payment_limit_table .payment_limit_buttons a {
+  text-align: center;
+  padding-top: 10px;
+  font-size: 14.5px;
+  text-decoration: none;
+  display: block;
+  color: black;
+  margin-left: 500px;
+}
+
+.content_info {
+  width: 1200px;
+  color: white;
+  text-align: center;
+  background-color: #b12b15;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 30px;
+  font-size: 21px;
+}
+
+.manual_export_content {
+  width: 410px;
+  margin: auto;
+}
+
+.manual_export_content .export_type select {
+  width: 410px;
+  height: 30px;
+}
+
+.manual_export_content .from_to_submit_content {
+  display: flex;
+  margin-top: 20px;
+}
+
+.manual_export_content .from_to_submit_content .from_to_content input {
+  width: 280px;
+  height: 30px;
+}
+
+.manual_export_content .from_to_submit_content .from_to_content .to_content {
+  margin-top: 20px;
+}
+
+.manual_export_content .from_to_submit_content .submit_content {
+  padding-left: 30px;
+  padding-top: 17px;
+}
+
+.manual_export_content .from_to_submit_content .submit_content input {
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+}
+
+@page {
+  size: 8.5in 11in;
+  margin: 2cm;
+}
+
+@media print {
+  .print_main {
+    page-break-after: always;
+  }
+
+  .page-title {
+    display: none;
+  }
+
+  .buttons_print {
+    display: none;
+  }
+
+  .buttons_print_again {
+    display: none;
+  }
+}
+
+.reklaportal_title {
+  text-align: center;
+  margin-top: 75px;
+  margin-bottom: 15px;
+}
+
+.reklaportal_content {
+  width: 450px;
+  margin: auto;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+
+.reklaportal_content a {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  padding-top: 32px;
+  font-size: 14.5px;
+  width: 230px;
+  height: 80px;
+  background-color: #2e7cb7;
+  color: white;
+  margin: 15px;
+  cursor: pointer;
+}
+
+.scanInvoiceNumberOrderRef.input-box > input,
+.scanEan.input-box > input {
+  width: 333px;
+}
+
+.scanInvoiceNumberOrderRef-back,
+.scanEan-back {
+  margin-top: 3px;
+  display: block;
+}
+
+.reklaportal_order_data_content {
+  width: 1200px;
+  margin: auto;
+}
+
+.reklaportal_order_data_content table {
+  margin-top: 50px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.reklaportal_order_data_content table th,
+.reklaportal_order_data_content table td {
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.reklaportal_order_data_content table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.reklaportal_order_data_content button {
+  background-color: #8e8e8e;
+  border: none;
+  color: white;
+  padding: 8px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+.reklaportal_order_data_content button:active {
+  padding: 7px 29px;
+}
+
+.reklaportal_content_info {
+  margin-top: 50px;
+}
+
+.scanEan {
+  margin-bottom: 50px;
+  width: 333px;
+}
+
+.showOrderDataModal {
+  display: flex !important;
+}
+
+.orderData-modal {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.orderData-modal .orderData-modal-content {
+  margin-top: 70px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  height: 200px;
+  background-color: white;
+}
+
+.orderData-modal .orderData-modal-content .orderData-modal-content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.orderData-modal .orderData-modal-content .orderData-modal-content-container .orderData-modal-content-container-title {
+  display: block;
+  font-size: 25px;
+  border-bottom: 1px solid grey;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.orderData-modal .orderData-modal-content .orderData-modal-content-container .orderData-modal-content-container-main {
+  width: 100%;
+  display: block;
+  text-align: center;
+  border-bottom: 1px solid gray;
+  margin-bottom: 10px;
+  padding-bottom: 35px;
+  padding-top: 35px;
+}
+
+.orderData-modal .orderData-modal-content .orderData-modal-content-container .orderData-modal-content-footer {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderData-modal .orderData-modal-content .orderData-modal-content-container .orderData-modal-content-footer button {
+  cursor: pointer;
+  outline: none;
+}
+
+.orderData-modal .orderData-modal-content .orderData-modal-close {
+  position: absolute;
+  color: black;
+  top: 0;
+  right: 0;
+  padding: 7px;
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  outline: none;
+}
+
+.orderData-modal-email {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.orderData-modal-email .orderData-modal-email-content {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  height: 200px;
+  margin-top: 70px;
+}
+
+.orderData-modal-email .orderData-modal-email-content .orderData-modal-email-content-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 35px;
+  box-sizing: border-box;
+}
+
+.orderData-modal-email .orderData-modal-email-content .orderData-modal-email-content-container span {
+  padding-bottom: 5px;
+}
+
+.orderData-modal-email .orderData-modal-email-content .orderData-modal-email-content-container .send-email-btn {
+  width: 150px;
+  position: absolute;
+  bottom: 5px;
+  right: 35px;
+}
+
+.orderData-modal-email .orderData-modal-email-content .orderData-modal-email-content-container .orderData-modal-email-textarea {
+  resize: none;
+  width: 100%;
+  height: 100px;
+}
+
+.orderData-modal-email .orderData-modal-email-content .orderData-modal-email-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px 15px;
+  box-sizing: border-box;
+  color: black;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.orderdata-garantie-service {
+  display: none;
+}
+
+.orderdata-garantie-service-header {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.orderdata-garantie-service-header .radio-btn-form {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.orderdata-garantie-service-header .radio-btn-form:last-child {
+  margin-left: 100px;
+}
+
+.orderdata-garantie-service-header .radio-btn-form label {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.orderdata-garantie-service-wrapper {
+  padding: 0;
+  margin: 0;
+  margin-top: 30px;
+  list-style: none;
+}
+
+.orderdata-garantie-service-wrapper-item {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.orderdata-garantie-service-wrapper-item label {
+  margin-left: 5px;
+}
+
+.orderdata-garantie-service input,
+.orderdata-garantie-service label {
+  cursor: pointer;
+}
+
+.orderdata-garantie-service-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.orderdata-garantie-service-buttons-item {
+  width: 150px;
+  height: 30px;
+  background: #8e8e8e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.orderdata-garantie-service-buttons-item:not(:first-child) {
+  margin-left: 20px;
+}
+
+.active-blue-button {
+  background-color: #417eb5 !important;
+}
+

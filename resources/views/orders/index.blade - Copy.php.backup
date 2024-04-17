@@ -1,0 +1,131 @@
+@extends("layouts.app")
+
+@section("title", "Auftragsliste")
+
+@section("content")
+    <div class="main-container pt-2 pb-2">
+        <h5 class="page-title">
+            <span class="bold-text">O N O M A O - Auftragsliste</span> vom {{$today}}</br>
+			@if($billbeeId == '68914')
+				<small>eCom Bestellungen</small>
+			@endif
+			@if($billbeeId == '77130')
+				<small>Reklamationen</small>
+			@endif
+			@if($billbeeId == '77642')
+				<small>Marketing oder Warensendungen </small>
+			@endif
+			@if($billbeeId == '77643')
+				<small>B2B Bestellungen</small>
+			@endif
+        </h5>
+		
+        @if($data && count($data))
+            @foreach($data as $order)
+                <div class="print_main">
+                    <div style="font-weight: bold; padding-top: 7px;">Bestellung: {{$order->orderNumber}} @if($order->sellerComment) </div><div>Hinweise zur Bestellung: {{$order->sellerComment}}@endif</div>
+
+                    <div class="flex-between border-btm pt-2">
+                        <div class="barcode-box">
+                            <?=
+                            '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($order->id, "C39", 1, 50) . '" alt="barcode"   />'
+                            ?>
+							<!-- // start Abhishek code 05-Mar-2020 Issue: Append company name below barcode   
+							
+							CM: ID is still the billbeeID and not the "value" the below does not work-->
+                            
+							@if($billbeeId == '77643')
+                            <div style="font-size: 16px;padding-top: 7px;">{{ $order->invoiceAddress->company }}</div>
+							@endif
+							
+							<div style="font-size: 16px;padding-top: 7px;">Name: {{$order->customer->name}}</div>
+							
+							<div><small>Rechnungsnummer: {{$order->invoiceNumberPrefix . $order->invoiceNumber}} </br> BillBeeID: {{$order->id}}</small></div>
+							
+							@if($order->shippingProviderProductId == '209113')
+								<div>!ACHTUNG EXPORT!</div>
+							@endif
+														
+
+							 <!-- // End Abhishek code 05-Mar-2020 Issue: Append company name below barcode  -->
+                        </div>
+                        <table class="info-table ml-2">
+                            <thead>
+                            <td style="width: 35%">Produkt</td>
+                            <td style="width: 25%">SKU</td>
+                            <td style="width: 15%">EAN</td>
+                            <td style="width: 20%">Lokation</td>
+                            <td style="width: 5%">Anzahl</td>	
+                            </thead>
+						
+							<!-- // start Abhishek code 03-03-2020 Issue: Letter capital or small  -->
+                            @foreach($order->orderItems as $orderItem)
+                                 @if(array_key_exists("ean",$orderItem->product))
+                                   	@if($orderItem->product->ean != '4200000000001'
+                                    && $orderItem->product->ean != '4200000000002'
+                                    && $orderItem->product->ean != '4200000000003'
+                                    && $orderItem->product->ean != '')
+                                    <tr>
+                                        <td>{{$orderItem->product->title}}</td>
+										<td>{{$orderItem->product->sku}}</td>
+                                        <!-- <td>
+                                            @if(isset($orderItem->attributes))
+                                                @foreach($orderItem->attributes as $attribute)
+                                                    @if(!is_null($attribute->value) && $attribute->value)
+                                                        {{ $attribute->value }}
+                                                        @break
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td> -->
+                                        <td>{{$orderItem->product->ean}}</td>
+                                        <td>{{isset($orderItem->product->StockCode)? $orderItem->product->StockCode :''}}</td>
+                                        <td>{{$orderItem->quantity}}</td>
+                                    </tr>
+									
+                                @endif
+								@else
+								@if($orderItem->product->EAN != '4200000000001'
+                                    && $orderItem->product->EAN != '4200000000002'
+                                    && $orderItem->product->EAN != '4200000000003'
+                                    && $orderItem->product->EAN != '')
+                                    <tr>
+                                        <td>{{$orderItem->product->Title}}</td>
+                                        <!-- <td>
+                                            @if(isset($orderItem->attributes))
+                                                @foreach($orderItem->attributes as $attribute)
+                                                    @if(!is_null($attribute->value) && $attribute->value)
+                                                        {{ $attribute->value }}
+                                                        @break
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td> -->
+                                        <td>{{$orderItem->product->EAN}}</td>
+                                        <td>{{isset($orderItem->product->StockCode)? $orderItem->product->StockCode :''}}</td>
+                                        <td>{{$orderItem->quantity}}</td>
+                                    </tr>
+									
+                                @endif	
+								
+									
+								@endif
+								
+                            @endforeach
+								<!-- // End Abhishek code 03-03-2020 Issue: Letter capital or small  -->
+                        </table>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+        <div class="buttons_print">
+            <a href="/" class="no-print back">
+                <button class="main-btn mt-2 back">< Zurück</button>
+            </a>
+            <button class="main-btn mt-2 no-print" onclick="printOrders()">
+                DRUCKEN
+            </button>
+        </div>
+    </div>
+
+@endsection

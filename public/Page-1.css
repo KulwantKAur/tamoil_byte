@@ -1,0 +1,62 @@
+.u-section-1 .u-sheet-1 {
+  min-height: 79px;
+}
+
+.u-section-1 .u-text-1 {
+  font-family: GothamNarrow-Light;
+  margin: 20px 0 20px auto;
+}.u-section-2 .u-sheet-1 {
+  min-height: 225px;
+}
+
+.u-section-2 .u-text-1 {
+  font-family: GothamNarrow-Light;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .u-section-2 .u-text-1 {
+    margin-bottom: 60px;
+    margin-top: 60px;
+  }
+}.u-section-3 .u-sheet-1 {
+  min-height: 309px;
+}.u-section-4 .u-sheet-1 {
+  min-height: 232px;
+}.u-section-5 {
+  background-image: url("images/Stamm1.PNG");
+  background-position: 50% 50%;
+}
+
+.u-section-5 .u-sheet-1 {
+  min-height: 585px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-5 .u-sheet-1 {
+    min-height: 482px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-5 .u-sheet-1 {
+    min-height: 369px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-5 .u-sheet-1 {
+    min-height: 277px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-5 .u-sheet-1 {
+    min-height: 174px;
+  }
+}@font-face {
+  font-family: 'GothamNarrow-Light';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/GothamNarrow-Light.otf);
+}
